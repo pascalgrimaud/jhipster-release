@@ -1,0 +1,13 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+Gemfile.lock
+.jekyll-metadata
+.bundle/
+
+# VSCode
+.vscode/
+
+# specific
+tmp/
