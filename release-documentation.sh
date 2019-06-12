@@ -1,7 +1,6 @@
 #!/bin/bash
 
 JHIPSTER_HOME=/home/pgrimaud/projects/jhipster/
-
 tag=v6.1.0
 
 ##################################################
@@ -42,6 +41,11 @@ baseurl: /documentation-archive/$tag
 url: /documentation-archive/$tag
 EOF
 
+echo "*** create Gemfile"
+rm Gemfile
+echo "source 'https://rubygems.org'" > Gemfile
+echo "gem 'github-pages'">>Gemfile
+
 docker exec -w /srv/jekyll -it release-jhipster.tech bundle install
 docker exec -w /srv/jekyll -it release-jhipster.tech bundle exec jekyll build -d /tmp/documentation-archive/$tag --config _config.yml,_config-baseurl.yml
 
@@ -65,8 +69,6 @@ docker-compose -f documentation-archive.yml down
 
 echo "*** copy the documentation archive"
 cp -R tmp/documentation-archive/$tag $JHIPSTER_HOME/documentation-archive/
-
-
 
 # TODO
 # Add the new release to the index.html
